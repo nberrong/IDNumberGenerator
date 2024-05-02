@@ -9,8 +9,6 @@ function getRandomInt(max) {
   
 
 function generateCard() {
-    let cardTitle = document.getElementById("card-title");
-    let cardNumber = document.getElementById("card-number");
     let newIdNumber = generateNumber();
     const newCard = document.createElement("div");
     const cardContainer = document.getElementById("card-container");
@@ -20,12 +18,12 @@ function generateCard() {
     } while (newIdNumber === "duplicate");
     
     newCard.className = "card";
-    newCard.removeAttribute("hidden");
     
     clickNumber++;
     
     newCard.innerHTML = `<h2>Identification Card #${clickNumber}</h2>
     <p>${newIdNumber}</p>`
+    
     cardContainer.appendChild(newCard);
     
     generatedCards.push(newIdNumber);

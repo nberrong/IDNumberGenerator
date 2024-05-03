@@ -1,4 +1,4 @@
-const numberDigitsInID = 2;
+const numberDigitsInID = 9;
 let clickNumber = 0;
 let generatedCards = [];
 

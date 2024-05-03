@@ -1,5 +1,5 @@
 const numberDigitsInID = 9;
-let cardNumber = 1;
+let cardNumber = 0;
 let generatedCards = [];
 let MAXNUMBEROFCARDS = Math.pow(10, numberDigitsInID);
 
@@ -11,15 +11,15 @@ function getRandomInt() {
 
 function generateCard() {
 
-    console.log(cardNumber + " / " + MAXNUMBEROFCARDS);
+    if (cardNumber < MAXNUMBEROFCARDS) {
 
-    if (cardNumber <= MAXNUMBEROFCARDS) {
         let newIdNumber = generateNumber();
         const newCard = document.createElement("div");
         const cardContainer = document.getElementById("card-container");
-    
+
+        cardNumber++;
+
         newCard.className = "card";
-        
         newCard.innerHTML = 
             `<h2>Identification Card #${cardNumber}</h2>
             <p>${newIdNumber}</p>`
@@ -27,12 +27,12 @@ function generateCard() {
         cardContainer.appendChild(newCard);
         
         generatedCards.push(newIdNumber);
-        cardNumber++;
     
+        console.log(cardNumber + " / " + MAXNUMBEROFCARDS);
         console.log(generatedCards);
+
     } else {
         alert("Maximum number of cards issued!");
-        
     }
 } 
   
@@ -71,7 +71,7 @@ function generateNumber() {
   
   
 function clearCards() {
-    cardNumber = 1;
+    cardNumber = 0;
     generatedCards = [];
    
     const cards = document.getElementById("card-container");

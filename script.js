@@ -13,10 +13,6 @@ function generateCard() {
     const newCard = document.createElement("div");
     const cardContainer = document.getElementById("card-container");
   
-    do {
-      newIdNumber = generateNumber();
-    } while (newIdNumber === "duplicate");
-    
     newCard.className = "card";
     
     clickNumber++;
@@ -32,9 +28,14 @@ function generateCard() {
   
     
 function generateNumber() {
-    const digits = new Array(); // Array to hold our values.
+    let digits = new Array(); 
+    let numberString = "";
+    let uniqueNumber = true;
   
-    for (let i = 0; i < numberDigitsInID; i++) {
+do {
+    uniqueNumber = true;
+   
+   for (let i = 0; i < numberDigitsInID; i++) {
         let x = getRandomInt();
         if (i === 3 || i === 5) {
             digits.push('-');
@@ -42,16 +43,18 @@ function generateNumber() {
         digits.push(x);
     }
   
-    let numberString = digits.join('');
+    numberString = digits.join('');
     
     // make sure new number is unique
     for (let i=0; i < generatedCards.length; i++) {
         if (numberString === generatedCards[i]) {
-            numberString = "duplicate";
-            console.log("duplicate");
-            return numberString;
+            uniqueNumber = false;
+            digits = [];
+            console.log("duplicate:" + numberString);
         }
     } 
+} while (uniqueNumber === false);
+
     return numberString;
 }
   

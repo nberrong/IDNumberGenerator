@@ -1,10 +1,10 @@
-const MAX = 9;
+const numberDigitsInID = 2;
 let clickNumber = 0;
 let generatedCards = [];
 
 
-function getRandomInt(max) {
-    return Math.floor(Math.random() * max);
+function getRandomInt() {
+    return Math.floor(Math.random() * 9);
 }
   
 
@@ -34,8 +34,8 @@ function generateCard() {
 function generateNumber() {
     const digits = new Array(); // Array to hold our values.
   
-    for (let i = 0; i < MAX; i++) {
-        let x = getRandomInt(MAX);
+    for (let i = 0; i < numberDigitsInID; i++) {
+        let x = getRandomInt();
         if (i === 3 || i === 5) {
             digits.push('-');
         }

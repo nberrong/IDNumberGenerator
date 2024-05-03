@@ -23,6 +23,8 @@ function generateCard() {
         newCard.innerHTML = 
             `<h2>Identification Card #${cardNumber}</h2>
             <p>${newIdNumber}</p>`
+
+        scrollToBottom();
         
         cardContainer.appendChild(newCard);
         
@@ -81,3 +83,10 @@ function clearCards() {
     console.log(generatedCards);
 }
   
+
+function scrollToBottom() {
+    // Use setTimeout to allow DOM updates before scrolling
+    setTimeout(() => {
+      window.scrollTo(0, document.body.scrollHeight);
+    }, 0);
+  }

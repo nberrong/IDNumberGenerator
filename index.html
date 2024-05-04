@@ -9,18 +9,36 @@
 </head>
 
 <body>
-  
-    <div id="fixed-menu">  
+
+        <div id="fixed-menu">  
         <h1>Identification Number Generator</h1>
-        <div id="button-wrapper">
-            <button onclick="generateCard()">Generate New Card</button>
-            <button onclick="clearCards()">Clear All Cards</button>
+        <div class="button-wrapper">
+            <button id="generate-btn" onclick="openForm()" value="switch">Generate New Card</button>
+            <button id="clear-btn">Clear All Cards</button>
         </div>
     </div>
   
     <div id="spacer"></div>
     
     <div id="card-container"></div>  
+
+    <div id="name-form" style="display:none;">
+        <form id="form-container">
+            <label for="first-name">Enter first name:</label>
+            <input type="text" id="first-name" autocomplete="off" placeholder="First Name" required>
+        
+            <label for="last-name">Enter last name:</label>
+            <input type="text" id="last-name" autocomplete="off" placeholder="Last Name" required>
+        
+            <div id="form-button-wrapper">
+                <button type="submit" id="submit-btn">Submit</button>
+                <button type="button" id="cancel-btn" onclick="closeForm()">Cancel</button>
+            </div>
+        </form>
+        </div>
+      
+    
+    
     
     <script src="script.js"></script>
 

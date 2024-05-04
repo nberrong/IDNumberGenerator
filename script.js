@@ -1,34 +1,56 @@
+'use strict';
+
 const numberDigitsInID = 9;
 let cardNumber = 0;
 let generatedCards = [];
 let MAXNUMBEROFCARDS = Math.pow(10, numberDigitsInID);
+const generateButton = document.querySelector('generate-btn');
 
-
-function getRandomInt() {
-    return Math.floor(Math.random() * 10);
+class Person {
+    constructor(firstName, lastName) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.fullName = `${firstName} ${lastName}`;
+        this.idNumber = generateNumber();
+    }
 }
-  
+
+function openForm() {
+    let form = document.getElementById("name-form");
+    form.style.display = "block";
+    form.style.margin = "auto";
+}
+
+
+function closeForm() {
+    document.getElementById("name-form").style.display = "none";
+}
+
 
 function generateCard() {
 
     if (cardNumber < MAXNUMBEROFCARDS) {
 
-        let newIdNumber = generateNumber();
+    //    let newIdNumber = generateNumber();
         const newCard = document.createElement("div");
         const cardContainer = document.getElementById("card-container");
 
+    //    let name = prompt("Please enter person's name:");
+        let person = new Person (name);
+        console.log(Person.fullName);
         cardNumber++;
 
         newCard.className = "card";
         newCard.innerHTML = 
             `<h2>Identification Card #${cardNumber}</h2>
-            <p>${newIdNumber}</p>`
+            <p>${person.fullName}
+            <p>${person.idNumber}</p>`
 
         scrollToBottom();
         
         cardContainer.appendChild(newCard);
         
-        generatedCards.push(newIdNumber);
+        generatedCards.push(person.idNumber);
     
         console.log(cardNumber + " / " + MAXNUMBEROFCARDS);
         console.log(generatedCards);
@@ -37,6 +59,11 @@ function generateCard() {
         alert("Maximum number of cards issued!");
     }
 } 
+  
+
+function getRandomInt() {
+    return Math.floor(Math.random() * 10);
+}
   
     
 function generateNumber() {

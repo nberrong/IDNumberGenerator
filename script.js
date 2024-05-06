@@ -1,6 +1,7 @@
 'use strict';
 
 const numberDigitsInID = 9;
+
 let cardNumber = 0;
 let generatedCards = [];
 let MAXNUMBEROFCARDS = Math.pow(10, numberDigitsInID);
@@ -41,8 +42,12 @@ function closeForm(){
 function getName() {
     let firstName = document.getElementById("first-name").value;
     let lastName = document.getElementById("last-name").value;
+
+    firstName = firstName.toLowerCase();
+    lastName = lastName.toLowerCase();
+
     let uniqueName = checkIfUniqueName(firstName, lastName);
-    
+        
     if (cardNumber === 0) { // first card
         let newPerson = new Person(firstName, lastName);
         generateCard(newPerson);

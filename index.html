@@ -14,7 +14,7 @@
         <h1>Identification Number Generator</h1>
         <div class="button-wrapper">
             <button id="generate-btn" onclick="openForm()" value="switch">Generate New Card</button>
-            <button id="clear-btn">Clear All Cards</button>
+            <button id="clear-btn" onclick="clearCards()">Clear All Cards</button>
         </div>
     </div>
   
@@ -31,7 +31,7 @@
             <input type="text" id="last-name" autocomplete="off" placeholder="Last Name" required>
         
             <div id="form-button-wrapper">
-                <button type="submit" id="submit-btn">Submit</button>
+                <button type="button" id="submit-btn" onclick="getName()">Submit</button>
                 <button type="button" id="cancel-btn" onclick="closeForm()">Cancel</button>
             </div>
         </form>

@@ -5,6 +5,10 @@ html, body {
   
 
 #name-form {
+    position: absolute;
+    top: 175px;
+    left: 0;
+    right: 0;
     border: solid 1px;
     padding: 10px;
     display: none;

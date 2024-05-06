@@ -4,8 +4,7 @@ const numberDigitsInID = 9;
 let cardNumber = 0;
 let generatedCards = [];
 let MAXNUMBEROFCARDS = Math.pow(10, numberDigitsInID);
-const generateButton = document.querySelector('generate-btn');
-
+ 
 class Person {
     constructor(firstName, lastName) {
         this.firstName = firstName;
@@ -17,17 +16,51 @@ class Person {
 
 function openForm() {
     let form = document.getElementById("name-form");
+    let menu = document.getElementById("fixed-menu");
+    let cardContainer = document.getElementById("card-container");
+
     form.style.display = "block";
     form.style.margin = "auto";
+    menu.style.opacity = "0.3";
+    cardContainer.style.opacity = "0.3";
+}
+
+
+function getName() {
+    console.log('in getName');
+
+    let firstName = document.getElementById("first-name").value;
+    let lastName = document.getElementById("last-name").value;
+    let newPerson = new Person(firstName, lastName);
+    
+    generateCard(newPerson);
 }
 
 
 function closeForm() {
     document.getElementById("name-form").style.display = "none";
+    let cardContainer = document.getElementById("card-container");
+    let menu = document.getElementById("fixed-menu");
+    menu.style.opacity = "1.0";
+    cardContainer.style.opacity = "1.0";
 }
 
 
-function generateCard() {
+function clearInputFields() {
+    document.getElementById("first-name").value = "";
+    document.getElementById("last-name").value = "";
+}
+
+function generateCard(newPerson) {
+    document.getElementById("name-form").style.display = "none";
+    let menu = document.getElementById("fixed-menu");
+    let cardContainer = document.getElementById("card-container");
+
+    clearInputFields();
+
+    menu.style.opacity = "1.0";
+    cardContainer.style.opacity = "1.0";
+    
 
     if (cardNumber < MAXNUMBEROFCARDS) {
 
@@ -36,24 +69,24 @@ function generateCard() {
         const cardContainer = document.getElementById("card-container");
 
     //    let name = prompt("Please enter person's name:");
-        let person = new Person (name);
-        console.log(Person.fullName);
+        
         cardNumber++;
 
         newCard.className = "card";
         newCard.innerHTML = 
             `<h2>Identification Card #${cardNumber}</h2>
-            <p>${person.fullName}
-            <p>${person.idNumber}</p>`
+            <p>${newPerson.fullName}
+            <p>${newPerson.idNumber}</p>`
 
         scrollToBottom();
         
         cardContainer.appendChild(newCard);
         
-        generatedCards.push(person.idNumber);
+        generatedCards.push(newPerson);
     
         console.log(cardNumber + " / " + MAXNUMBEROFCARDS);
         console.log(generatedCards);
+    
 
     } else {
         alert("Maximum number of cards issued!");
@@ -87,7 +120,7 @@ function generateNumber() {
         
         // make sure new number is unique
         for (let i=0; i < generatedCards.length; i++) {
-            if (numberString === generatedCards[i]) {
+            if (numberString === generatedCards[i].idNumber) {
                 uniqueNumber = false;
                 digits = [];
                 console.log("duplicate:" + numberString);

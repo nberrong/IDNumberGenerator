@@ -14,6 +14,7 @@ class Person {
     }
 }
 
+
 function openForm() {
     let form = document.getElementById("name-form");
     let menu = document.getElementById("fixed-menu");
@@ -26,23 +27,51 @@ function openForm() {
 }
 
 
-function getName() {
-    console.log('in getName');
+function closeForm(){
+    document.getElementById("name-form").style.display = "none";
+    let menu = document.getElementById("fixed-menu");
+    let cardContainer = document.getElementById("card-container");
+    clearInputFields();
 
-    let firstName = document.getElementById("first-name").value;
-    let lastName = document.getElementById("last-name").value;
-    let newPerson = new Person(firstName, lastName);
-    
-    generateCard(newPerson);
+    menu.style.opacity = "1.0";
+    cardContainer.style.opacity = "1.0";
 }
 
 
-function closeForm() {
-    document.getElementById("name-form").style.display = "none";
-    let cardContainer = document.getElementById("card-container");
-    let menu = document.getElementById("fixed-menu");
-    menu.style.opacity = "1.0";
-    cardContainer.style.opacity = "1.0";
+function getName() {
+    let firstName = document.getElementById("first-name").value;
+    let lastName = document.getElementById("last-name").value;
+    let uniqueName = checkIfUniqueName(firstName, lastName);
+    
+    if (cardNumber === 0) { // first card
+        let newPerson = new Person(firstName, lastName);
+        generateCard(newPerson);
+    }
+    else {
+        if ( uniqueName === false ) { // id already issued in this name
+            closeForm();
+        } else {
+            let newPerson = new Person(firstName, lastName);
+            generateCard(newPerson);
+         }
+    }
+}
+
+
+function checkIfUniqueName(firstName, lastName) {
+    let uniqueName = true;
+    let newNameEntry = `${firstName} ${lastName}`;
+
+    do {
+        for (let i=0; i<generatedCards.length; i++) {
+            if (newNameEntry === generatedCards[i].fullName) {
+                uniqueName = false;
+                alert(`${generatedCards[i].fullName} has previously been assigned ID number ${generatedCards[i].idNumber}!`);
+                return uniqueName;
+            };
+        }
+    } while (uniqueName === false); 
+
 }
 
 
@@ -51,45 +80,37 @@ function clearInputFields() {
     document.getElementById("last-name").value = "";
 }
 
+
 function generateCard(newPerson) {
-    document.getElementById("name-form").style.display = "none";
-    let menu = document.getElementById("fixed-menu");
-    let cardContainer = document.getElementById("card-container");
-
-    clearInputFields();
-
-    menu.style.opacity = "1.0";
-    cardContainer.style.opacity = "1.0";
     
+    closeForm();
+    
+    if (cardNumber < MAXNUMBEROFCARDS) { // still id numbers available
 
-    if (cardNumber < MAXNUMBEROFCARDS) {
-
-    //    let newIdNumber = generateNumber();
         const newCard = document.createElement("div");
         const cardContainer = document.getElementById("card-container");
 
-    //    let name = prompt("Please enter person's name:");
-        
         cardNumber++;
 
-        newCard.className = "card";
-        newCard.innerHTML = 
-            `<h2>Identification Card #${cardNumber}</h2>
-            <p>${newPerson.fullName}
-            <p>${newPerson.idNumber}</p>`
+            newCard.className = "card";
+            newCard.innerHTML = 
+                `<h2>Identification Card #${cardNumber}</h2>
+                <p>${newPerson.fullName}
+                <p>${newPerson.idNumber}</p>`
 
-        scrollToBottom();
+            scrollToBottom();
+            
+            cardContainer.appendChild(newCard);
+            
+            generatedCards.push(newPerson);
         
-        cardContainer.appendChild(newCard);
+            console.log(cardNumber + " / " + MAXNUMBEROFCARDS);
+            console.log(generatedCards);
         
-        generatedCards.push(newPerson);
-    
-        console.log(cardNumber + " / " + MAXNUMBEROFCARDS);
-        console.log(generatedCards);
-    
-
     } else {
+     
         alert("Maximum number of cards issued!");
+    
     }
 } 
   
@@ -133,14 +154,11 @@ function generateNumber() {
   
   
 function clearCards() {
+    const cards = document.getElementById("card-container");
+    
     cardNumber = 0;
     generatedCards = [];
-   
-    const cards = document.getElementById("card-container");
     cards.innerHTML = "";
-  
-    console.log(cardNumber);
-    console.log(generatedCards);
 }
   
 
@@ -149,4 +167,4 @@ function scrollToBottom() {
     setTimeout(() => {
       window.scrollTo(0, document.body.scrollHeight);
     }, 0);
-  }
+}
